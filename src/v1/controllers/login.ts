@@ -37,7 +37,6 @@ export default async function (req: Request, res: Response) {
         });
     }
 
-    // TODO: Don't send the password to the client
     res.status(status.OK).send({
         status: status.OK,
         message: 'Login successfully',
