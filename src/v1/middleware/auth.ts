@@ -13,6 +13,7 @@ export default function(req: Request, res: Response, next: NextFunction) {
 
     // Save token information to locals
     res.locals.token = authorization.token;
+    global.project_id = authorization.token;
 
     next();
 
