@@ -1,15 +1,22 @@
 import {config} from '../config/setup';
 import axios from "axios";
 
-export async function requestLog(body: any, project_id: string) {
+export async function requestLog(data: any) {
 
-    body['project_id'] = project_id;
+    const { status, message, ...rest } = data;
 
-    // TODO: Validar que todo vaya bien
+    const body = {
+        project_id: global.project_id.id,
+        code: status,
+        message: message,
+        others: rest
+    }
+
+    // TODO: Validar que todo vaya bien para enviar el request
     try {
-        const restult = await axios.post(config.ADMIN_URL + "/request/create", body);
-        console.log("requestLog", restult);
+        await axios.post(config.ADMIN_URL + "/request/create", body);
     } catch (e){
         console.log(e);
     }
+
 }
