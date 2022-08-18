@@ -12,11 +12,33 @@ export async function requestLog(data: any) {
         others: rest
     }
 
-    // TODO: Validar que todo vaya bien para enviar el request
     try {
-        await axios.post(config.ADMIN_URL + "/request/create", body);
+
+        const response = await axios.post(config.ADMIN_URL + "/request/create", body);
+
+        if (response.data.status !== status.CREATED) {
+
+            return {
+                status: response.data.status,
+                message: response.data.message,
+                error: response.data.error
+            };
+
+        }
+
+        return {
+            status: status.CREATED,
+            message: 'Request created successfully'
+        }
+
     } catch (e){
-        console.log(e);
+
+        return {
+            status: status.INTERNAL_SERVER_ERROR,
+            message: e.message,
+            error: e
+        }
+
     }
 
 }
