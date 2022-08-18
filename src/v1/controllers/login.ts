@@ -13,6 +13,7 @@ export default async function (req: Request, res: Response) {
 
         if (validate.status !== status.OK) {
 
+            // TODO: Abans de ficar request log a tot arreu mirar de poder validar que vagi be la request
             // Register the request
             await requestLog(validate);
 
